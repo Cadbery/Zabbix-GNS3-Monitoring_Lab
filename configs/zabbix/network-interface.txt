@@ -1,0 +1,19 @@
+network:
+  ethernets:
+    ens3:
+      match:
+        macaddress: 0c:22:88:06:00:00
+      set-name: ens3
+  version: 2
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ens3:
+      addresses:
+        - 192.168.99.100/24
+      routes:
+        - to: default
+          via: 192.168.99.1
+      nameservers:
+        addresses: [8.8.8.8, 1.1.1.1]

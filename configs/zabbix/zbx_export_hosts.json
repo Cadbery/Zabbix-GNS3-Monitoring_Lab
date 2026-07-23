@@ -1,0 +1,104 @@
+{
+    "zabbix_export": {
+        "version": "7.0",
+        "host_groups": [
+            {
+                "uuid": "b503955ccf7440b2aafaff0db4f36e2a",
+                "name": "Routers"
+            },
+            {
+                "uuid": "efaea9ef1d014e14a54a01b94bd05acc",
+                "name": "Web servers"
+            }
+        ],
+        "hosts": [
+            {
+                "host": "External-WAN-Gateway",
+                "name": "External-WAN-Gateway",
+                "templates": [
+                    {
+                        "name": "ICMP Ping"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Routers"
+                    }
+                ],
+                "interfaces": [
+                    {
+                        "ip": "8.8.8.8",
+                        "interface_ref": "if1"
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            },
+            {
+                "host": "VLAN20-Web-Server",
+                "name": "VLAN20-Web-Server",
+                "templates": [
+                    {
+                        "name": "ICMP Ping"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Web servers"
+                    }
+                ],
+                "interfaces": [
+                    {
+                        "ip": "192.168.20.10",
+                        "interface_ref": "if1"
+                    }
+                ],
+                "httptests": [
+                    {
+                        "name": "HTTP Homepage Check",
+                        "steps": [
+                            {
+                                "name": "Verify HTTP 200 OK",
+                                "url": "http://192.168.20.10",
+                                "follow_redirects": "NO",
+                                "status_codes": "200"
+                            }
+                        ]
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            },
+            {
+                "host": "VyOS-Router",
+                "name": "VyOS-Router",
+                "templates": [
+                    {
+                        "name": "Linux by SNMP"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Routers"
+                    }
+                ],
+                "interfaces": [
+                    {
+                        "type": "SNMP",
+                        "ip": "192.168.87.129",
+                        "port": "161",
+                        "details": {
+                            "community": "{$SNMP_COMMUNITY}"
+                        },
+                        "interface_ref": "if1"
+                    }
+                ],
+                "macros": [
+                    {
+                        "macro": "{$SNMP_COMMUNITY}",
+                        "value": "lab_ro"
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            }
+        ]
+    }
+}
