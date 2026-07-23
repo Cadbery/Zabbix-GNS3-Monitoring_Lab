@@ -12,6 +12,17 @@ To prove the efficacy of the monitoring setup, five **Chaos Matrix** failure sce
 
 ---
 
+## Lab Deployment & Setup
+
+1. **Topology Deployment:** Imported node appliances (VyOS, OVS, Ubuntu Server, VPCS) into GNS3.
+2. **Layer 2/3 Provisioning:** Configured OVS VLAN access/trunk tags and VyOS 802.1Q sub-interfaces (`eth1.10`, `eth1.20`, `eth1.99`).
+3. **Services:** Deployed Nginx container on VLAN 20 and Zabbix Server/Frontend stack on VLAN 99.
+4. **Monitoring Rules:** Configured ICMP ping triggers and agentless HTTP Web Scenarios for application SLA tracking.
+
+> *Note: Complete device configurations and exported Zabbix scenarios are available in the [`configs/`](./configs/) directory.*
+
+---
+
 ## Network Architecture & Topology
 
 The topology separates traffic across three primary VLANs routed through a central VyOS gateway and switched via Open vSwitch:
